@@ -4,7 +4,31 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ─── FitNova Brand Tokens ──────────────────────────────── */
+:root {
+  --brand-orange: #ff6b35;
+  --brand-orange-light: #ff8c5a;
+  --brand-orange-dark: #e55a2a;
+  --brand-purple: #8b5cf6;
+  --brand-purple-light: #a78bfa;
+  --brand-purple-dark: #7c3aed;
+  --brand-emerald: #10b981;
+  --brand-rose: #f43f5e;
+  --brand-cyan: #06b6d4;
+}
+
 @theme inline {
+  /* Brand colors available as Tailwind utilities */
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-orange-light: var(--brand-orange-light);
+  --color-brand-orange-dark: var(--brand-orange-dark);
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-purple-light: var(--brand-purple-light);
+  --color-brand-purple-dark: var(--brand-purple-dark);
+  --color-brand-emerald: var(--brand-emerald);
+  --color-brand-rose: var(--brand-rose);
+  --color-brand-cyan: var(--brand-cyan);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -122,9 +146,53 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  /* Brand gradients */
+  .gradient-brand {
+    background: linear-gradient(135deg, var(--brand-orange) 0%, var(--brand-purple) 100%);
+  }
+  .gradient-brand-subtle {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--brand-orange) 0%, var(--brand-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  /* Glow effects */
+  .glow-orange {
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.3), 0 0 60px rgba(255, 107, 53, 0.1);
+  }
+  .glow-purple {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3), 0 0 60px rgba(139, 92, 246, 0.1);
+  }
+  /* Scrollbar hide */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
