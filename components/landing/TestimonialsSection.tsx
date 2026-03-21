@@ -41,7 +41,7 @@ export function TestimonialsSection() {
             <span className="gradient-text">Real Results</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Join thousands of members who've transformed their lives with FitNova.
+            Join thousands of members who&apos;ve transformed their lives with FitNova.
           </p>
         </AnimatedSection>
 

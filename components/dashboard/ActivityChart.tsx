@@ -12,7 +12,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { weeklyActivityData, monthlyProgressData } from "@/data/dashboard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const tabs = ["Weekly Activity", "Monthly Progress"];
@@ -36,6 +36,11 @@ function CustomTooltip({ active, payload, label }: any) {
 
 export function ActivityChart() {
   const [activeTab, setActiveTab] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="rounded-2xl bg-card border border-border p-6">
@@ -60,26 +65,30 @@ export function ActivityChart() {
       </div>
 
       <div className="h-52">
-        <ResponsiveContainer width="100%" height="100%">
-          {activeTab === 0 ? (
-            <BarChart data={weeklyActivityData} barGap={4}>
-              <XAxis dataKey="day" tick={{ fontSize: 12, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
-              <YAxis hide />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,107,53,0.05)" }} />
-              <Bar dataKey="calories" name="Calories" fill="var(--brand-orange)" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="duration" name="Minutes" fill="var(--brand-purple)" radius={[4, 4, 0, 0]} opacity={0.7} />
-            </BarChart>
-          ) : (
-            <LineChart data={monthlyProgressData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-              <XAxis dataKey="week" tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
-              <YAxis domain={[74, 83]} tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
-              <Tooltip content={<CustomTooltip />} />
-              <Line type="monotone" dataKey="weight" name="Weight (kg)" stroke="var(--brand-orange)" strokeWidth={2.5} dot={{ fill: "var(--brand-orange)", r: 4 }} />
-              <Line type="monotone" dataKey="target" name="Target" stroke="var(--brand-emerald)" strokeWidth={2} strokeDasharray="5 5" dot={false} />
-            </LineChart>
-          )}
-        </ResponsiveContainer>
+        {mounted ? (
+          <ResponsiveContainer width="100%" height="100%">
+            {activeTab === 0 ? (
+              <BarChart data={weeklyActivityData} barGap={4}>
+                <XAxis dataKey="day" tick={{ fontSize: 12, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
+                <YAxis hide />
+                <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,107,53,0.05)" }} />
+                <Bar dataKey="calories" name="Calories" fill="var(--brand-orange)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="duration" name="Minutes" fill="var(--brand-purple)" radius={[4, 4, 0, 0]} opacity={0.7} />
+              </BarChart>
+            ) : (
+              <LineChart data={monthlyProgressData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                <XAxis dataKey="week" tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
+                <YAxis domain={[74, 83]} tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
+                <Tooltip content={<CustomTooltip />} />
+                <Line type="monotone" dataKey="weight" name="Weight (kg)" stroke="var(--brand-orange)" strokeWidth={2.5} dot={{ fill: "var(--brand-orange)", r: 4 }} />
+                <Line type="monotone" dataKey="target" name="Target" stroke="var(--brand-emerald)" strokeWidth={2} strokeDasharray="5 5" dot={false} />
+              </LineChart>
+            )}
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-full w-full rounded-xl bg-muted/40 animate-pulse" />
+        )}
       </div>
 
       <div className="flex items-center gap-6 mt-4 text-xs text-muted-foreground">

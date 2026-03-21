@@ -1,24 +1,25 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 
 export default function AuthPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const mode = searchParams.get("mode");
-
-  const initialTab = useMemo(() => (mode === "login" ? "login" : "signup"), [mode]);
-  const [activeTab, setActiveTab] = useState<"login" | "signup">(initialTab as "login" | "signup");
+  const [activeTab, setActiveTab] = useState<"login" | "signup">("signup");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const mode = new URLSearchParams(window.location.search).get("mode");
+    setActiveTab(mode === "login" ? "login" : "signup");
+  }, []);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();

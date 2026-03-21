@@ -86,7 +86,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl"
           >
-            Join 50,000+ members who train with India's top fitness experts.
+            Join 50,000+ members who train with India&apos;s top fitness experts.
             Yoga, HIIT, Strength & more — all in one place.
           </motion.p>
 

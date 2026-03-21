@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Progress } from "@/components/ui/progress";
 import { programs } from "@/data/programs";
 
 const categoryProgress = [

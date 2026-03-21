@@ -10,7 +10,7 @@ export default function NotFound() {
           <div className="text-7xl mb-6">🏋️</div>
           <h1 className="text-4xl font-extrabold gradient-text mb-4">404 — Page Not Found</h1>
           <p className="text-muted-foreground mb-8 text-lg max-w-md mx-auto">
-            Looks like you took a wrong turn on the fitness trail. Let's get you back on track.
+            Looks like you took a wrong turn on the fitness trail. Let&apos;s get you back on track.
           </p>
           <Link
             href="/"
